@@ -13,4 +13,3 @@ if [[ "$@" == *"php-fpm"* ]]; then
 fi
 
 exec my_init
-# exec my_init --skip-runit --quiet -- "$@" 2>&1

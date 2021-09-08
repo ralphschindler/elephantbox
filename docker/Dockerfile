@@ -1,22 +1,15 @@
-FROM phusion/baseimage:bionic-1.0.0
+FROM phusion/baseimage:master-amd64
 
 EXPOSE 80
 
-ENV TERM="xterm-256color" \
-  LC_ALL="en_US.UTF-8" \
-  LANG="en_US.UTF-8" \
-  PATH="$PATH:/app/vendor/bin:/app/node_modules/.bin:/app" \
-  PHP_MEMORY_LIMIT="256M" \
-  PHP_OPCACHE_ENABLED="1" \
-  PHP_OPCACHE_VALIDATE_TIMESTAMPS="0" \
-  PHP_OPCACHE_BLACKLIST_FILENAME="/etc/php/opcache-enabled.blacklist" \
+ENV PATH="$PATH:/app/vendor/bin:/app/node_modules/.bin:/app" \
+  TERM="xterm-256color" \
   COMPOSER_ALLOW_SUPERUSER="1" \
+  PHP_MEMORY_LIMIT="256M" \
   APP_ENV="production" \
   APP_NAME="elephantbox-app"
 
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
-  && curl https://packages.confluent.io/deb/5.5/archive.key | apt-key add - \
-  && add-apt-repository "deb [arch=amd64] https://packages.confluent.io/deb/5.5 stable main" \
   && apt-add-repository -y ppa:ondrej/php \
   && install_clean \
     git \
@@ -52,6 +45,6 @@ COPY ./ /
 
 ENTRYPOINT ["entrypoint"]
 
-CMD ["run-services", "nginx,php-fpm"]
+CMD ["/bin/true"]
 
 WORKDIR /app

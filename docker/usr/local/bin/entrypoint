@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# create the missing php-fpm socket directory
+mkdir /run/php
+
+# per-project entrypoint scripting
+if [[ ! -z "${ENTRYPOINT_SCRIPT}" && -x "${ENTRYPOINT_SCRIPT}" ]]; then
+  source "${ENTRYPOINT_SCRIPT}"
+fi
+
+# Laravel specific: in production cache the config on startup
+if [[ -x "/app/artisan" ]]; then
+  if [[ "$APP_ENV" == "production" ]]; then
+    phpenmod opcache-production
+    artisan config:cache -q
+  else
+    phpenmod opcache-local
+    artisan config:clear -q
+  fi
+fi
+
+exec "$@"

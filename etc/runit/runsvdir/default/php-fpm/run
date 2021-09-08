@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-exec /usr/sbin/php-fpm8.0 --nodaemonize -R --fpm-config /etc/php/php-fpm.conf
