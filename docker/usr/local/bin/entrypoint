@@ -19,9 +19,11 @@ if [[ -x "/app/artisan" ]]; then
   fi
 fi
 
+# run-services is a meta-command, we're still going to run that through my_init
+# but letting my_init handle the daemonization for us
 if [[ "$1" == "run-services" || "$1" == "/usr/local/bin/run-services" ]]; then
   source /usr/local/bin/run-services $2
-  exec my_init
+  exec $MY_INIT_COMMAND
 else
-  exec my_init --quiet -- "$@" 2>&1
+  exec $MY_INIT_COMMAND -- "$@" 2>&1
 fi

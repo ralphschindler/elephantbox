@@ -8,7 +8,8 @@ ENV APP_ENV="production" \
   PATH="$PATH:/app/vendor/bin:/app/node_modules/.bin:/app" \
   PHP_IDE_CONFIG="serverName=localhost" \
   PHP_MEMORY_LIMIT="256M" \
-  TERM="xterm-256color"
+  TERM="xterm-256color" \
+  MY_INIT_COMMAND="my_init --quiet"
 
 
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
