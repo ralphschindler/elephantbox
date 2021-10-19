@@ -19,11 +19,11 @@ class InitCommand extends Command
         $hasMysql = true;
         $hasRedis = true;
 
-        $generator = new class ($applicationName, $hasMysql, $hasRedis) {
+        // $generator = new class ($applicationName, $hasMysql, $hasRedis) {
+        //
+        // };
 
-        };
-
-        file_put_contents('docker-compose.yml', $generator->generate());
+        // file_put_contents('docker-compose.yml', $generator->generate());
 
         $output->write('docker-compose.yml was written, `docker-compose up -d` to start your project');
 

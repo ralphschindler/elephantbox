@@ -9,7 +9,7 @@ Elephantbox in either a `docker-compose` context or a `Dockerfile` context as:
 
 - a development time runnable image
 - a production time image
-- a parent image
+- a parent / base image
 
 ## Quick install and run:
 

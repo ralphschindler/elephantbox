@@ -1,13 +1,15 @@
-FROM phusion/baseimage:master-amd64
+FROM phusion/baseimage:focal-1.1.0
 
 EXPOSE 80
 
-ENV PATH="$PATH:/app/vendor/bin:/app/node_modules/.bin:/app" \
-  TERM="xterm-256color" \
+ENV APP_ENV="production" \
+  APP_NAME="elephantbox-app" \
   COMPOSER_ALLOW_SUPERUSER="1" \
+  PATH="$PATH:/app/vendor/bin:/app/node_modules/.bin:/app" \
+  PHP_IDE_CONFIG="serverName=localhost" \
   PHP_MEMORY_LIMIT="256M" \
-  APP_ENV="production" \
-  APP_NAME="elephantbox-app"
+  TERM="xterm-256color"
+
 
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
   && apt-add-repository -y ppa:ondrej/php \

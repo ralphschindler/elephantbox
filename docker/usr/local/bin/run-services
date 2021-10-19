@@ -1,15 +1,6 @@
 #!/usr/bin/env bash
 
-if [[ "$@" == *"cron"* ]]; then
-  rm /etc/service/cron/down
-fi
-
-if [[ "$@" == *"nginx"* ]]; then
-  rm /etc/service/nginx/down
-fi
-
-if [[ "$@" == *"php-fpm"* ]]; then
-  rm /etc/service/php-fpm/down
-fi
-
-exec my_init
+# typically one or more of cron, nginx, php-fpm (comma separated for multiple)
+echo "$1" | tr ',' '\n' | while read SERVICE; do
+  rm "/etc/service/$SERVICE/down"
+done

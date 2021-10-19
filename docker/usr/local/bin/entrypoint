@@ -4,7 +4,7 @@
 mkdir /run/php
 
 # per-project entrypoint scripting
-if [[ ! -z "${ENTRYPOINT_SCRIPT}" && -x "${ENTRYPOINT_SCRIPT}" ]]; then
+if [[ -n "${ENTRYPOINT_SCRIPT}" && -x "${ENTRYPOINT_SCRIPT}" ]]; then
   source "${ENTRYPOINT_SCRIPT}"
 fi
 
@@ -19,4 +19,9 @@ if [[ -x "/app/artisan" ]]; then
   fi
 fi
 
-exec "$@"
+if [[ "$1" == "run-services" || "$1" == "/usr/local/bin/run-services" ]]; then
+  source /usr/local/bin/run-services $2
+  exec my_init
+else
+  exec my_init --quiet -- "$@" 2>&1
+fi
