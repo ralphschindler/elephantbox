@@ -1,6 +1,6 @@
 {
     "name": "elephantbox/elephantbox",
-    "description": "PHP Applications, Dockerizer",
+    "description": "Production grade PHP Docker Phusion container; Dockerizer",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -13,12 +13,9 @@
         "php": ">=7.2",
         "symfony/console": "^4.0|^5.0"
     },
-    "bin": [
-        "bin/elephantbox"
-    ],
     "autoload": {
         "psr-4": {
-            "WhaleDock\\": "src/"
+            "Elephantbox\\": "src/"
         }
     }
 }

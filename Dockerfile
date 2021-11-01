@@ -1,16 +1,22 @@
 FROM phusion/baseimage:focal-1.1.0
 
-EXPOSE 80
+# Generally don't override these
+ENV COMPOSER_HOME="/root/.composer" \
+    COMPOSER_ALLOW_SUPERUSER=1 \
+    PATH="$PATH:/app/vendor/bin:/app:/app/node_modules/.bin" \
+    PHP_IDE_CONFIG="serverName=localhost" \
+    TERM="xterm-256color"
 
-ENV APP_ENV="production" \
-  APP_NAME="elephantbox-app" \
-  COMPOSER_ALLOW_SUPERUSER="1" \
-  PATH="$PATH:/app/vendor/bin:/app/node_modules/.bin:/app" \
-  PHP_IDE_CONFIG="serverName=localhost" \
-  PHP_MEMORY_LIMIT="256M" \
-  TERM="xterm-256color" \
-  MY_INIT_COMMAND="my_init --quiet"
-
+# Environment variables to be overridden if needed
+ENV APP_NAME="elephantbox-app" \
+    APP_ENV="production" \
+    MY_INIT_COMMAND="my_init --quiet" \
+    PHP_FPM_INI_MEMORY_LIMIT="128M" \
+    PHP_FPM_INI_OPCACHE_BLACKLIST_FILENAME="" \
+    PHP_FPM_INI_POST_MAX_SIZE="10M" \
+    PHP_FPM_INI_UPLOAD_MAX_FILESIZE="10M" \
+    PHP_FPM_CONF_PM="dynamic" \
+    PHP_FPM_CONF_PM_MAX_CHILDREN="5"
 
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
   && apt-add-repository -y ppa:ondrej/php \
@@ -44,7 +50,9 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
   && rm /etc/php/8.0/*/conf.d/20-xdebug.ini \
   && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-COPY ./ /
+EXPOSE 80
+
+COPY ./docker /
 
 ENTRYPOINT ["entrypoint"]
 
