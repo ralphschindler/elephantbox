@@ -28,5 +28,5 @@ server {
 }
 
 upstream backend {
-    server unix:/run/php/php8.0-fpm.sock;
+    server unix:/run/php/php8.1-fpm.sock;
 }
