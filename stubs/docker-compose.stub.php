@@ -3,7 +3,8 @@ version: '3.7'
 services:
 
   web:
-    image: elephantbox/phusion-web:latest
+    image: elephantbox/elephantbox:latest
+    command: run-services nginx,php-fpm
     environment:
       APP_NAME: <?= $this->applicationName ?>
 
@@ -28,7 +29,7 @@ services:
       - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: developer
+      MYSQL_DATABASE: laravel
       MYSQL_USER: developer
       MYSQL_PASSWORD: developer
   <?php endif; ?>
